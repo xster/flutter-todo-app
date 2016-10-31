@@ -1,0 +1,5 @@
+name: flutter_todo_app
+description: A sample Todo app.
+dependencies:
+  flutter:
+    sdk: flutter

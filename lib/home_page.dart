@@ -7,7 +7,15 @@ class HomePage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("Todo"),
       ),
-      body: new Center(child: new Text("Hello, World !"))
+      body: new Center(
+        child: new Text("Hello, World !",
+          style: new TextStyle(
+            fontFamily: "Rubik",
+            fontWeight: FontWeight.w100,
+            fontSize: 18.0
+          )
+        )
+      )
     );
   }
 }

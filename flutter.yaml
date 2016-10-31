@@ -1,16 +1,15 @@
 name: flutter_todo_app
 uses-material-design: true
-assets:
-  fonts:
-    - family: Rubik
-      fonts:
-        - asset: assets/fonts/Rubik-Black.ttf
-        - asset: assets/fonts/Rubik-BlackItalic.ttf
-        - asset: assets/fonts/Rubik-Bold.ttf
-        - asset: assets/fonts/Rubik-BoldItalic.ttf
-        - asset: assets/fonts/Rubik-Italic.ttf
-        - asset: assets/fonts/Rubik-Light.ttf
-        - asset: assets/fonts/Rubik-LightItalic.ttf
-        - asset: assets/fonts/Rubik-Medium.ttf
-        - asset: assets/fonts/Rubik-MediumItalic.ttf
-        - asset: assets/fonts/Rubik-Regular.ttf
+fonts:
+  - family: Rubik
+    fonts:
+      - asset: assets/fonts/Rubik-Regular.ttf
+      - asset: assets/fonts/Rubik-Medium.ttf
+      - asset: assets/fonts/Rubik-Black.ttf
+      - asset: assets/fonts/Rubik-BlackItalic.ttf
+      - asset: assets/fonts/Rubik-Bold.ttf
+      - asset: assets/fonts/Rubik-BoldItalic.ttf
+      - asset: assets/fonts/Rubik-Italic.ttf
+      - asset: assets/fonts/Rubik-Light.ttf
+      - asset: assets/fonts/Rubik-LightItalic.ttf
+      - asset: assets/fonts/Rubik-MediumItalic.ttf
