@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import  'style.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,11 +11,7 @@ class HomePage extends StatelessWidget {
       ),
       body: new Center(
         child: new Text("Hello, World !",
-          style: new TextStyle(
-            fontFamily: "Rubik",
-            fontWeight: FontWeight.w100,
-            fontSize: 18.0
-          )
+          style: new TodoStyle(fontWeight: FontWeight.w400)
         )
       )
     );
