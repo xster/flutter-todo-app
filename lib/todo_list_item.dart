@@ -37,26 +37,30 @@ class _TodoListItemState extends State<TodoListItem> {
         onPressed: toggleDone,
       );
 
+  IconButton getExpandIcon() => new IconButton(
+        icon: new Icon(
+          _isExpanded ? Icons.expand_less : Icons.expand_more,
+          color: Colors.black,
+        ),
+        onPressed: toggleExpandedIcon,
+      );
+      
   void toggleDone() {
     setState(() {
       _done = !_done;
     });
   }
 
-  void toggleExpandedIcon(bool isExpanded) {
+  void toggleExpandedIcon() {
     setState(() {
-      _isExpanded = !isExpanded;
+      _isExpanded = !_isExpanded;
     });
   }
 
   Widget buildCollapsed() => new ListItem(
         leading: getLeadingIcon(),
         title: new Text(config.title, style: getTitleStyle()),
-        trailing: new ExpandIcon(
-          isExpanded: false,
-          onPressed: this.toggleExpandedIcon,
-          padding: const EdgeInsets.all(0.0),
-        ),
+        trailing: getExpandIcon(),
       );
 
   Widget buildExpanded(BuildContext context) => new Container(
@@ -75,11 +79,7 @@ class _TodoListItemState extends State<TodoListItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   new Text(config.title, style: getTitleStyle()),
-                  new ExpandIcon(
-                    isExpanded: true,
-                    onPressed: this.toggleExpandedIcon,
-                    padding: const EdgeInsets.all(0.0),
-                  ),
+                  getExpandIcon(),
                 ],
               ),
               new Container(height: 16.0),
