@@ -35,6 +35,7 @@ class _TodoListItemState extends State<TodoListItem> {
           color: Colors.amber[500],
         ),
         onPressed: toggleDone,
+        padding: const EdgeInsets.all(0.0),
       );
 
   IconButton getExpandIcon() => new IconButton(
@@ -43,8 +44,9 @@ class _TodoListItemState extends State<TodoListItem> {
           color: Colors.black,
         ),
         onPressed: toggleExpandedIcon,
+        padding: EdgeInsets.zero,
       );
-      
+
   void toggleDone() {
     setState(() {
       _done = !_done;
@@ -57,45 +59,59 @@ class _TodoListItemState extends State<TodoListItem> {
     });
   }
 
-  Widget buildCollapsed() => new ListItem(
-        leading: getLeadingIcon(),
-        title: new Text(config.title, style: getTitleStyle()),
-        trailing: getExpandIcon(),
-      );
+  Widget buildCollapsed() {
+    return new Container(
+      padding: const EdgeInsets.all(16.0),
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          new Row(children: [
+            getLeadingIcon(),
+            new Container(width: 12.0),
+            new Text(config.title, style: getTitleStyle()),
+          ]),
+          getExpandIcon(),
+        ],
+      ),
+    );
+  }
 
   Widget buildExpanded(BuildContext context) => new Container(
         decoration: new BoxDecoration(
           backgroundColor: Colors.white,
           border: new Border(
-            top: new BorderSide(color: Theme.of(context).dividerColor),
             bottom: new BorderSide(color: Theme.of(context).dividerColor),
           ),
         ),
-        padding: const EdgeInsets.all(16.0),
+        // padding: const EdgeInsets.all(16.0),
         child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  new Text(config.title, style: getTitleStyle()),
-                  getExpandIcon(),
-                ],
+              buildCollapsed(),
+              new Container(height: 2.0),
+              new Container(
+                padding: const EdgeInsets.only(left: 52.0),
+                child: new Text(
+                  config.description,
+                  style: new TextStyle(fontFamily: 'Rubik'),
+                ),
               ),
               new Container(height: 16.0),
-              new Text(
-                config.description,
-                style: new TextStyle(fontFamily: 'Rubik'),
-              ),
-              new Container(height: 16.0),
-              new Row(
-                children: [
-                  new Icon(Icons.calendar_today),
-                  new Container(width: 8.0),
-                  new Text("Today",
-                      style:
-                          new TextStyle(fontFamily: 'Rubik', fontSize: 18.0)),
-                ],
+              new Container(
+                padding: new EdgeInsets.only(
+                  left: 52.0,
+                  right: 16.0,
+                  bottom: 16.0,
+                ),
+                child: new Row(
+                  children: [
+                    new Icon(Icons.calendar_today),
+                    new Container(width: 8.0),
+                    new Text("Today",
+                        style:
+                            new TextStyle(fontFamily: 'Rubik', fontSize: 18.0)),
+                  ],
+                ),
               ),
             ]),
       );
