@@ -5,8 +5,16 @@ class TodoListItem extends StatefulWidget {
   final String title;
   final bool done;
   final String description;
-  TodoListItem(
-      {this.title, this.description, this.done, this.isExpanded: false, key})
+
+  // Is `true` if this item is the first to be shown
+  final bool isFirstItem;
+
+  TodoListItem({this.title,
+  this.description,
+  this.done,
+  this.isExpanded: false,
+  this.isFirstItem: false,
+  key})
       : super(key: key);
 
   @override
@@ -15,11 +23,27 @@ class TodoListItem extends StatefulWidget {
   }
 }
 
-class _TodoListItemState extends State<TodoListItem> {
+class _TodoListItemState extends State<TodoListItem>
+    with SingleTickerProviderStateMixin {
   bool _isExpanded;
   bool _done;
+  AnimationController _controller;
+  Animation<double> _animation;
 
   _TodoListItemState(this._done, this._isExpanded);
+
+  @override
+  void initState() {
+    _controller = new AnimationController(
+        duration: new Duration(milliseconds: 300), vsync: this);
+    _animation = new CurvedAnimation(parent: _controller, curve: Curves.ease);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   TextStyle getTitleStyle() => new TextStyle(
         color: _done ? Colors.grey[500] : Colors.black,
@@ -54,9 +78,13 @@ class _TodoListItemState extends State<TodoListItem> {
   }
 
   void toggleExpandedIcon() {
-    setState(() {
-      _isExpanded = !_isExpanded;
-    });
+    if (!_isExpanded) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+
+    _isExpanded = !_isExpanded;
   }
 
   Widget buildCollapsed() {
@@ -70,54 +98,71 @@ class _TodoListItemState extends State<TodoListItem> {
             new Container(width: 12.0),
             new Text(config.title, style: getTitleStyle()),
           ]),
-          getExpandIcon(),
+          new RotationTransition(
+              turns: new Tween(begin: 0.0, end: 0.5).animate(_animation),
+              child: getExpandIcon()),
         ],
       ),
     );
   }
 
-  Widget buildExpanded(BuildContext context) => new Container(
-        decoration: new BoxDecoration(
-          backgroundColor: Colors.white,
-          border: new Border(
-            bottom: new BorderSide(color: Theme.of(context).dividerColor),
-          ),
-        ),
-        // padding: const EdgeInsets.all(16.0),
-        child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              buildCollapsed(),
-              new Container(height: 2.0),
-              new Container(
-                padding: const EdgeInsets.only(left: 52.0),
-                child: new Text(
+  Widget buildHiddenContent() {
+    return new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Container(height: 2.0),
+          new Container(
+              padding: const EdgeInsets.only(left: 52.0),
+              child: new Text(
                   config.description,
                   style: new TextStyle(fontFamily: 'Rubik'),
-                ),
-              ),
-              new Container(height: 16.0),
-              new Container(
-                padding: new EdgeInsets.only(
+                  ),
+          ),
+          new Container(height: 16.0),
+          new Container(
+              padding: new EdgeInsets.only(
                   left: 52.0,
                   right: 16.0,
                   bottom: 16.0,
-                ),
-                child: new Row(
+                  ),
+              child: new Row(
                   children: [
                     new Icon(Icons.calendar_today),
                     new Container(width: 8.0),
                     new Text("Today",
-                        style:
-                            new TextStyle(fontFamily: 'Rubik', fontSize: 18.0)),
+                        style: new TextStyle(
+                            fontFamily: 'Rubik', fontSize: 18.0)),
                   ],
-                ),
+                  ),
               ),
+        ]);
+  }
+
+  Widget buildExpanded(BuildContext context) {
+    return new Container(
+        decoration: new BoxDecoration(
+            backgroundColor: Colors.white,
+            border: new Border(
+                bottom: new BorderSide(color: Theme
+                    .of(context)
+                    .dividerColor),
+        ),
+            ),
+    // padding: const EdgeInsets.all(16.0),
+        child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              buildCollapsed(),
+              new SizeTransition(
+                  axisAlignment: 0.0,
+                  sizeFactor: _animation,
+                  child: buildHiddenContent())
             ]),
-      );
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return _isExpanded ? buildExpanded(context) : buildCollapsed();
+    return buildExpanded(context);
   }
 }

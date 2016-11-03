@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 class TodoApp extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -12,8 +11,7 @@ class TodoApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.red,
         accentColor: Colors.amber[500],
-        primaryColor: Colors.red[500]
-        // textTheme: new TextTheme()
+          primaryColor: Colors.red[500],
       ),
       home: new HomePage(),
     );
