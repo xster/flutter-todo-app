@@ -5,11 +5,7 @@ fonts:
     fonts:
       - asset: assets/fonts/Rubik-Regular.ttf
       - asset: assets/fonts/Rubik-Medium.ttf
+        weight: 300
       - asset: assets/fonts/Rubik-Black.ttf
-      - asset: assets/fonts/Rubik-BlackItalic.ttf
-      - asset: assets/fonts/Rubik-Bold.ttf
-      - asset: assets/fonts/Rubik-BoldItalic.ttf
-      - asset: assets/fonts/Rubik-Italic.ttf
-      - asset: assets/fonts/Rubik-Light.ttf
-      - asset: assets/fonts/Rubik-LightItalic.ttf
-      - asset: assets/fonts/Rubik-MediumItalic.ttf
+        weight: 700
+
