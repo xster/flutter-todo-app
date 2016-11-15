@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'fullscreen_dialog.dart';
 import 'home_page.dart';
+
 class TodoApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -16,7 +17,7 @@ class TodoApp extends StatelessWidget {
       home: new HomePage(),
         routes: <String, WidgetBuilder>{
           "/new": (BuildContext ctx) => new FullScreenDialog(),
-        }
+        },
     );
   }
 }

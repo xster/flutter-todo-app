@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'style.dart';
+import 'todo.dart';
 import 'todo_list_item.dart';
-
-class Todo {
-  String title;
-  String description;
-  DateTime due;
-  bool done;
-
-  Todo({this.title, this.description, this.done: false});
-}
 
 class HomePage extends StatefulWidget {
   List<Todo> todos = [
@@ -42,7 +34,7 @@ class _HomePageState extends State<HomePage> {
             ),
         floatingActionButton: new FloatingActionButton(
             onPressed: () {
-              print('hey');
+              Navigator.pushNamed(context, "/new");
             },
             child: new Icon(Icons.add),
             ));
